@@ -1,15 +1,19 @@
 # repl.py
+import sys
 from gpt_api import generate_text
-from file_io import read_file, write_file
+from file_io import read_file, write_file, load_puns, get_random_pun
+
+# Load the puns from the CSV file
+puns_dict = load_puns('bee_puns.csv')
 
 def repl():
-    print("Welcome to the Bee Inspection Weather Check App! Type 'help' for commands.")
+    print(get_random_pun(puns_dict, "Friendly Greeting"))
     
     while True:
         command = input("> ").strip().lower()
         
         if command == 'exit':
-            print("Goodbye!")
+            print(get_random_pun(puns_dict, "Sign Off"))
             break
         elif command == 'help':
             print("Available commands:\n"
@@ -31,10 +35,10 @@ def repl():
             write_file(file_path, prompt)
             print(f"Text written to {file_path}")
         elif command == 'generate':
-            zip_code = input("Enter your 5-digit zip code: ")
+            zip_code = input(get_random_pun(puns_dict, "Request Zip Code"))
             prompt = f"Provide weather advice for beekeeping in zip code {zip_code}"
             result = generate_text(prompt)
-            print(f"Generated text:\n{result}")
+            print(get_random_pun(puns_dict, "Optimal Conditions Feedback") if "sunny" in result else get_random_pun(puns_dict, "Non-Optimal Conditions Feedback"))
         else:
             print("Unknown command. Type 'help' for a list of available commands.")
 

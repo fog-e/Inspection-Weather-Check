@@ -22,6 +22,6 @@ def generate_beekeeping_answer(question):
     return response[0]['generated_text']
 
 def generate_joke():
-    prompt = "Tell me a bee-themed joke that is culturally sensitive and inclusive."
+    prompt = "Tell me a bee-themed joke that includes scientific and accredited beekeeping practices, suitable for both hobbyists and professionals."
     response = generator(prompt, max_length=50, truncation=True)
     return response[0]['generated_text']

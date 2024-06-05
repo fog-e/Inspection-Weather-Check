@@ -14,8 +14,8 @@ def get_hive_condition():
     return condition
 
 def repl():
-    print(get_random_pun(puns_dict, "Friendly Greeting"))
-    zip_code = input("Please enter your 5-digit zip code to check the weather: ")
+    print("Hello there, bee-autiful beekeeper! 🐝")
+    zip_code = input("Please enter your 5-digit zip code: ")
     temperature = get_weather_info()
     advice = generate_inspection_advice(zip_code, temperature)
     print(advice)
@@ -24,7 +24,7 @@ def repl():
         command = input("> ").strip().lower()
 
         if command == 'exit':
-            print(get_random_pun(puns_dict, "Sign Off"))
+            print("Bee seeing you! Don't bee a stranger!")
             break
         elif command == 'help':
             print("Available commands:\n"
@@ -50,7 +50,7 @@ def repl():
             joke = generate_joke()
             print(joke)
         else:
-            print("Unknown command. Type 'help' for a list of available commands.")
+            print("Unrecognized action detected. For a list of all available hive commands, type 'help'.")
 
 if __name__ == '__main__':
     repl()

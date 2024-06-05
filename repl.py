@@ -1,20 +1,24 @@
 # repl.py
-import sys
-from gpt_api import generate_text
+from gpt_api import generate_inspection_advice, generate_beekeeping_answer, generate_joke
 from file_io import load_puns, get_random_pun
 
 # Load the puns from the CSV file
 puns_dict = load_puns('bee_puns.csv')
 
+def get_weather_info():
+    temperature = float(input("Enter the current temperature (in °F): "))
+    return temperature
+
+def get_hive_condition():
+    condition = input("Describe the hive condition (e.g., 'good brood pattern, sufficient honey stores'): ")
+    return condition
+
 def repl():
     print(get_random_pun(puns_dict, "Friendly Greeting"))
     zip_code = input("Please enter your 5-digit zip code to check the weather: ")
-    prompt = f"Provide weather advice for beekeeping in zip code {zip_code}"
-    try:
-        result = generate_text(prompt)
-        print(get_random_pun(puns_dict, "Optimal Conditions Feedback") if "sunny" in result else get_random_pun(puns_dict, "Non-Optimal Conditions Feedback"))
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    temperature = get_weather_info()
+    advice = generate_inspection_advice(zip_code, temperature)
+    print(advice)
 
     while True:
         command = input("> ").strip().lower()
@@ -28,17 +32,23 @@ def repl():
                   "exit - Exit the application\n"
                   "weather check - Check the weather for inspection\n"
                   "inspection log - Log inspection details\n"
+                  "ask a beekeeping question - Get an answer to a beekeeping question\n"
                   "tell me a joke - Hear a bee-themed joke")
         elif command == 'weather check':
-            zip_code = input(get_random_pun(puns_dict, "Request Zip Code"))
-            prompt = f"Provide weather advice for beekeeping in zip code {zip_code}"
-            try:
-                result = generate_text(prompt)
-                print(get_random_pun(puns_dict, "Optimal Conditions Feedback") if "sunny" in result else get_random_pun(puns_dict, "Non-Optimal Conditions Feedback"))
-            except Exception as e:
-                print(f"An error occurred: {e}")
+            temperature = get_weather_info()
+            advice = generate_inspection_advice(zip_code, temperature)
+            print(advice)
+        elif command == 'inspection log':
+            hive_condition = get_hive_condition()
+            log_entry = f"Inspection Log: {hive_condition}"
+            print(log_entry)
+        elif command == 'ask a beekeeping question':
+            question = input("What is your beekeeping question? ")
+            answer = generate_beekeeping_answer(question)
+            print(answer)
         elif command == 'tell me a joke':
-            print(get_random_pun(puns_dict, "Additional Puns and Jokes"))
+            joke = generate_joke()
+            print(joke)
         else:
             print("Unknown command. Type 'help' for a list of available commands.")
 

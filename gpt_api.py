@@ -6,15 +6,22 @@ import os
 # Load environment variables from .env file
 load_dotenv()
 
-# Retrieve the Hugging Face API token from the environment variables
-api_token = os.getenv('HUGGINGFACE_API_TOKEN')
-if not api_token:
-    raise ValueError("Hugging Face API token not found. Make sure it is set in the .env file.")
-
 # Set up the pipeline with a pre-trained model
-generator = pipeline('text-generation', model='gpt-3.5-turbo', api_key=api_token)
+generator = pipeline('text-generation', model='gpt2')
 
-def generate_text(prompt):
-    response = generator(prompt, max_length=50)
+def generate_inspection_advice(zip_code, temperature):
+    prompt = (f"Given the temperature is {temperature}°F in zip code {zip_code}, provide detailed advice for hive inspection. "
+              "Use information from https://honeybeehealthcoalition.org/ and https://u.osu.edu/beelab/.")
+    response = generator(prompt, max_length=150, truncation=True)
     return response[0]['generated_text']
-git 
+
+def generate_beekeeping_answer(question):
+    prompt = (f"Answer the following beekeeping question using information from https://honeybeehealthcoalition.org/ and "
+              f"https://u.osu.edu/beelab/: {question}")
+    response = generator(prompt, max_length=150, truncation=True)
+    return response[0]['generated_text']
+
+def generate_joke():
+    prompt = "Tell me a bee-themed joke that is culturally sensitive and inclusive."
+    response = generator(prompt, max_length=50, truncation=True)
+    return response[0]['generated_text']

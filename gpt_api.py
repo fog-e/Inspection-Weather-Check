@@ -1,8 +1,13 @@
 # gpt_api.py
 import openai
-from config import OPENAI_API_KEY
+from dotenv import load_dotenv
+import os
 
-openai.api_key = OPENAI_API_KEY
+# Load environment variables from .env file
+load_dotenv()
+
+# Retrieve the OpenAI API key from the environment variables
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 def generate_text(prompt):
     response = openai.ChatCompletion.create(
@@ -12,4 +17,4 @@ def generate_text(prompt):
             {"role": "user", "content": prompt}
         ]
     )
-    return response.choices[0].message['content'].strip()
+    return response.choices[0].message['content']

@@ -1,6 +1,6 @@
-# 🐝 Bee Inspection Weather Check 🐝
+# Bee Inspection Weather Check
 
-Hi Sweetie! This application helps beekeepers determine if the current weather is optimal for inspecting their honey bee colonies. 
+This application helps beekeepers determine if the current weather is optimal for inspecting their honey bee colonies. 
 It also logs the details of each inspection, including date, time, and weather information.
 
 ## Features

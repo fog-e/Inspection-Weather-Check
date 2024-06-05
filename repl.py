@@ -36,7 +36,10 @@ def tell_joke():
 
 def repl():
     print(get_random_pun(puns_dict, "Friendly Greeting"))
-    print("Please enter your 5-digit zip code to check the weather.")
+    zip_code = input("Please enter your 5-digit zip code to check the weather: ")
+    prompt = f"Provide weather advice for beekeeping in zip code {zip_code}"
+    result = generate_text(prompt)
+    print(get_random_pun(puns_dict, "Optimal Conditions Feedback") if "sunny" in result else get_random_pun(puns_dict, "Non-Optimal Conditions Feedback"))
 
     while True:
         command = input("> ").strip().lower()
